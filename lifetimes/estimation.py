@@ -763,7 +763,7 @@ class ModifiedBetaGeoFitter(BetaGeoFitter):
     """
 
     def __init__(self, penalizer_coef=0.0):
-        super(self.__class__, self).__init__(penalizer_coef)
+        super(ModifiedBetaGeoFitter, self).__init__(penalizer_coef)
 
     def fit(self, frequency, recency, T, iterative_fitting=1,
             initial_params=None, verbose=False, tol=1e-4, index=None,
@@ -789,17 +789,17 @@ class ModifiedBetaGeoFitter(BetaGeoFitter):
             self, with additional properties and methods like params_ and predict
 
         """
-        super(self.__class__, self).fit(frequency,
-                                        recency,
-                                        T,
-                                        iterative_fitting,
-                                        initial_params,
-                                        verbose,
-                                        tol,
-                                        index=index,
-                                        fit_method=fit_method,
-                                        maxiter=maxiter,
-                                        **kwargs)  # although the parent method is called, this class's _negative_log_likelihood is referenced
+        super(ModifiedBetaGeoFitter, self).fit(frequency,
+                                               recency,
+                                               T,
+                                               iterative_fitting,
+                                               initial_params,
+                                               verbose,
+                                               tol,
+                                               index=index,
+                                               fit_method=fit_method,
+                                               maxiter=maxiter,
+                                               **kwargs)  # although the parent method is called, this class's _negative_log_likelihood is referenced
         self.generate_new_data = lambda size=1: modified_beta_geometric_nbd_model(T, *self._unload_params('r', 'alpha', 'a', 'b'), size=size)  # this needs to be reassigned from the parent method
         return self
 
